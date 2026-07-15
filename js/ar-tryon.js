@@ -21,9 +21,16 @@ async function arStart(){
     arState.stream = stream;
     arState.running = true;
 
-    stage.innerHTML = `<video id="ar-video" autoplay playsinline muted></video><canvas id="ar-canvas"></canvas>`;
+    stage.innerHTML = `<video id="ar-video" autoplay playsinline muted
+      disablepictureinpicture disableremoteplayback
+      controlslist="nodownload nofullscreen noremoteplayback noplaybackrate"
+      x-webkit-airplay="deny"></video><canvas id="ar-canvas"></canvas>`;
     const video = document.getElementById('ar-video');
     const canvas = document.getElementById('ar-canvas');
+    // Belt-and-suspenders: some Chromium builds still show the floating
+    // "..." picture-in-picture control unless this is also set via JS.
+    video.disablePictureInPicture = true;
+    video.controls = false;
     video.srcObject = stream;
 
     video.addEventListener('loadedmetadata', () => {
