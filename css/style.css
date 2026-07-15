@@ -182,6 +182,21 @@ h1,h2,h3,.display{
 .badge-ar .dot{width:7px;height:7px;border-radius:50%;background:var(--rose);animation:pulse 1.6s infinite;}
 @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
 
+.hero-illustration{
+  position:absolute; inset:0; width:100%; height:100%;
+}
+.hero-illustration .scan-line{
+  animation:ar-scan 3.2s ease-in-out infinite;
+}
+@keyframes ar-scan{
+  0%   { transform:translateY(0); opacity:.15; }
+  50%  { transform:translateY(300px); opacity:.6; }
+  100% { transform:translateY(0); opacity:.15; }
+}
+@media (prefers-reduced-motion: reduce){
+  .hero-illustration .scan-line{ animation:none; opacity:.35; }
+}
+
 /* =============== SECTION HEADINGS =============== */
 .section{padding:76px 0;}
 .section-head{
@@ -284,6 +299,15 @@ h1,h2,h3,.display{
   position:relative; aspect-ratio:4/3; background:#11150F; display:flex; align-items:center; justify-content:center; overflow:hidden;
 }
 .ar-stage video{width:100%; height:100%; object-fit:cover; transform:scaleX(-1);}
+/* Suppress Chrome/Edge's automatic floating "..." picture-in-picture button
+   that otherwise appears on top of the camera feed. */
+.ar-stage video::-webkit-media-controls,
+.ar-stage video::-webkit-media-controls-enclosure,
+.ar-stage video::-webkit-media-controls-panel,
+.ar-stage video::-webkit-media-controls-overlay-enclosure,
+.ar-stage video::-webkit-media-controls-overlay-play-button{
+  display:none !important; opacity:0 !important; pointer-events:none !important;
+}
 .ar-stage canvas{position:absolute; inset:0; width:100%; height:100%; transform:scaleX(-1);}
 .ar-placeholder{color:#C9C4B4; font-size:13.5px; text-align:center; padding:24px; max-width:280px;}
 .ar-placeholder .icon{font-size:34px; margin-bottom:10px;}
