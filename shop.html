@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Toko — Hijab AR</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%238F3A38'/%3E%3Cpath d='M8 20 Q16 10 24 20' stroke='%23F1E8D6' stroke-width='2.4' fill='none'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo"><span class="mark">🧕</span> Hijab AR</a>
+    <nav class="nav-links">
+      <a href="index.html">Beranda</a>
+      <a href="shop.html" class="active">Toko</a>
+      <a href="product.html?id=hb-001">Coba AR</a>
+      <a href="admin.html">Admin</a>
+    </nav>
+    <div class="header-actions">
+      <a href="cart.html" class="cart-btn">🛍️ Keranjang <span class="cart-count">0</span></a>
+      <button class="nav-toggle" aria-label="Menu">☰</button>
+    </div>
+  </div>
+</header>
+
+<section class="section" style="padding-bottom:0;">
+  <div class="container">
+    <div class="eyebrow" style="margin-bottom:10px;">KATALOG LENGKAP</div>
+    <h1 style="font-size:clamp(28px,4vw,42px); margin-bottom:26px;">Semua Koleksi Hijab</h1>
+    <div class="filter-bar" id="filter-bar"></div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0;">
+  <div class="container">
+    <div class="product-grid" id="product-grid"></div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <span>© 2026 Hijab AR.</span>
+      <a href="admin.html" style="color:#C9C4B4;">Login Admin</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/shop.js"></script>
+</body>
+</html>
