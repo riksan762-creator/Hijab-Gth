@@ -37,6 +37,7 @@
       <button class="active" onclick="switchAdminView('dashboard', this)">📊 Dashboard</button>
       <button onclick="switchAdminView('products', this)">🧣 Produk</button>
       <button onclick="switchAdminView('orders', this)">📦 Pesanan</button>
+      <button onclick="switchAdminView('appearance', this)">🖼️ Tampilan</button>
       <button onclick="switchAdminView('settings', this)">⚙️ Pengaturan</button>
     </nav>
     <button class="logout-btn" onclick="adminLogout()">← Keluar</button>
@@ -78,6 +79,25 @@
           <thead><tr><th>ID</th><th>Pelanggan</th><th>Item</th><th>Total</th><th>Status</th></tr></thead>
           <tbody id="admin-order-list"></tbody>
         </table>
+      </div>
+    </div>
+
+    <!-- Appearance -->
+    <div class="admin-view" id="view-appearance">
+      <div class="admin-header"><h2>Tampilan Beranda</h2></div>
+      <div class="settings-card" style="max-width:480px;">
+        <h3 style="font-size:16px; margin-bottom:6px;">Gambar Panel "AR Fitting Aktif"</h3>
+        <p style="font-size:12.5px; color:var(--ink-soft); margin-bottom:16px;">Ganti ilustrasi bawaan di hero beranda dengan foto model memakai hijab, atau tangkapan layar hasil AR fitting. Rasio potret (misal 4:5) hasilnya paling rapi.</p>
+
+        <div class="hero-preview-box" id="hero-preview-box"></div>
+
+        <label class="photo-upload-zone" style="display:block; margin-top:14px;">
+          🖼️ Klik untuk unggah gambar hero
+          <input type="file" accept="image/*" style="display:none;" onchange="handleHeroImageUpload(this)">
+        </label>
+        <div style="display:flex; gap:10px; margin-top:14px;">
+          <button type="button" class="btn btn-outline btn-block" onclick="resetHeroImageAdmin()">Kembalikan ke Ilustrasi Default</button>
+        </div>
       </div>
     </div>
 
