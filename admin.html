@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel — Hijab AR</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%238F3A38'/%3E%3Cpath d='M8 20 Q16 10 24 20' stroke='%23F1E8D6' stroke-width='2.4' fill='none'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin-body">
+
+<!-- ============== LOGIN ============== -->
+<div class="admin-login-wrap" id="admin-login-view">
+  <div class="admin-login-card">
+    <div class="logo" style="margin-bottom:18px;">🧕 Hijab AR</div>
+    <h1>Admin Panel</h1>
+    <p>Masuk untuk mengelola produk, foto, dan pesanan.</p>
+    <form onsubmit="adminLogin(event)">
+      <div class="field">
+        <label>Password Admin</label>
+        <input type="password" id="admin-pass" required placeholder="Masukkan password">
+      </div>
+      <div id="login-error"></div>
+      <button type="submit" class="btn btn-primary btn-block">Masuk</button>
+    </form>
+    <div class="admin-hint">Password default: <strong>hijab2026</strong> — ganti di menu Pengaturan setelah login.</div>
+    <a href="index.html" style="display:block; text-align:center; margin-top:18px; font-size:13px; color:var(--ink-soft);">← Kembali ke Toko</a>
+  </div>
+</div>
+
+<!-- ============== PANEL ============== -->
+<div class="admin-shell" id="admin-panel-view" style="display:none;">
+  <aside class="admin-sidebar">
+    <div class="logo">🧕 Hijab AR</div>
+    <nav class="admin-nav">
+      <button class="active" onclick="switchAdminView('dashboard', this)">📊 Dashboard</button>
+      <button onclick="switchAdminView('products', this)">🧣 Produk</button>
+      <button onclick="switchAdminView('orders', this)">📦 Pesanan</button>
+      <button onclick="switchAdminView('settings', this)">⚙️ Pengaturan</button>
+    </nav>
+    <button class="logout-btn" onclick="adminLogout()">← Keluar</button>
+  </aside>
+
+  <main class="admin-main">
+
+    <!-- Dashboard -->
+    <div class="admin-view active" id="view-dashboard">
+      <div class="admin-header"><h2>Dashboard</h2></div>
+      <div class="stat-grid">
+        <div class="stat-card"><div class="label">Total Produk</div><div class="value" id="stat-products">0</div></div>
+        <div class="stat-card"><div class="label">Total Pesanan</div><div class="value" id="stat-orders">0</div></div>
+        <div class="stat-card"><div class="label">Total Pendapatan</div><div class="value" id="stat-revenue">Rp0</div></div>
+        <div class="stat-card"><div class="label">Stok Menipis</div><div class="value" id="stat-lowstock">0</div></div>
+      </div>
+      <p style="color:var(--ink-soft); font-size:13.5px;">Gunakan menu <strong>Produk</strong> untuk mengunggah foto baru dan mengatur harga, atau menu <strong>Pesanan</strong> untuk memperbarui status pengiriman.</p>
+    </div>
+
+    <!-- Products -->
+    <div class="admin-view" id="view-products">
+      <div class="admin-header">
+        <h2>Produk</h2>
+        <button class="btn btn-primary" onclick="openProductForm()">+ Tambah Produk</button>
+      </div>
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead><tr><th>Foto</th><th>Produk</th><th>Harga</th><th>Stok</th><th>Aksi</th></tr></thead>
+          <tbody id="admin-product-list"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Orders -->
+    <div class="admin-view" id="view-orders">
+      <div class="admin-header"><h2>Pesanan</h2></div>
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead><tr><th>ID</th><th>Pelanggan</th><th>Item</th><th>Total</th><th>Status</th></tr></thead>
+          <tbody id="admin-order-list"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Settings -->
+    <div class="admin-view" id="view-settings">
+      <div class="admin-header"><h2>Pengaturan</h2></div>
+      <div class="settings-card">
+        <h3 style="font-size:16px; margin-bottom:14px;">Ganti Password Admin</h3>
+        <form onsubmit="changeAdminPassword(event)">
+          <div class="field"><label>Password Baru</label><input type="password" id="new-pass" minlength="4" required></div>
+          <button type="submit" class="btn btn-primary btn-block">Simpan Password</button>
+        </form>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ============== PRODUCT MODAL ============== -->
+<div class="modal-overlay" id="product-modal">
+  <div class="modal-card">
+    <h3 id="modal-title">Tambah Produk Baru</h3>
+    <form id="product-form" onsubmit="saveProductForm(event)">
+      <input type="hidden" name="id">
+      <div class="form-grid">
+        <div class="field"><label>Nama Produk</label><input type="text" name="name" required></div>
+        <div class="field"><label>Kategori</label><input type="text" name="category" required placeholder="Bergo / Pashmina / Segi Empat"></div>
+        <div class="field"><label>Harga (Rp)</label><input type="number" name="price" min="0" required></div>
+        <div class="field"><label>Stok</label><input type="number" name="stock" min="0" required></div>
+        <div class="field"><label>Bahan</label><input type="text" name="material" required></div>
+        <div class="field"><label>Ukuran (pisahkan koma)</label><input type="text" name="sizes" placeholder="All Size, 170x70 cm"></div>
+        <div class="field full"><label>Warna — kode hex, pisahkan koma</label><input type="text" name="colors" placeholder="#8F3A38, #20261F"></div>
+        <div class="field full"><label>Deskripsi</label><textarea name="desc" rows="3"></textarea></div>
+      </div>
+
+      <label>Foto Produk</label>
+      <label class="photo-upload-zone" style="display:block; margin-top:8px;">
+        📷 Klik untuk unggah foto (bisa lebih dari satu)
+        <input type="file" accept="image/*" multiple style="display:none;" onchange="handlePhotoUpload(this)">
+      </label>
+      <div class="photo-preview-list" id="photo-preview-list"></div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn btn-outline" onclick="closeProductForm()">Batal</button>
+        <button type="submit" class="btn btn-primary">Simpan Produk</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script src="js/admin.js"></script>
+<script>
+  function switchAdminView(name, btn){
+    document.querySelectorAll('.admin-view').forEach(v => v.classList.remove('active'));
+    document.getElementById('view-' + name).classList.add('active');
+    document.querySelectorAll('.admin-nav button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+</script>
+</body>
+</html>
