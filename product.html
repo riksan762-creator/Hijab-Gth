@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Detail Produk — Hijab AR</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%238F3A38'/%3E%3Cpath d='M8 20 Q16 10 24 20' stroke='%23F1E8D6' stroke-width='2.4' fill='none'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo"><span class="mark">🧕</span> Hijab AR</a>
+    <nav class="nav-links">
+      <a href="index.html">Beranda</a>
+      <a href="shop.html">Toko</a>
+      <a href="product.html?id=hb-001" class="active">Coba AR</a>
+      <a href="admin.html">Admin</a>
+    </nav>
+    <div class="header-actions">
+      <a href="cart.html" class="cart-btn">🛍️ Keranjang <span class="cart-count">0</span></a>
+      <button class="nav-toggle" aria-label="Menu">☰</button>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  <div class="pd-grid" id="pd-root"><!-- filled by product.js --></div>
+
+  <div class="ar-panel" id="ar-panel">
+    <div class="ar-panel-head">
+      <h3>✨ AR Fitting Room</h3>
+      <span class="eyebrow">BETA</span>
+    </div>
+    <div class="ar-stage" id="ar-stage">
+      <div class="ar-placeholder">
+        <div class="icon">🎥</div>
+        Nyalakan kamera untuk melihat hijab ini langsung di wajahmu secara real-time.
+      </div>
+    </div>
+    <div class="ar-controls">
+      <div class="ar-btn-row">
+        <button class="btn btn-gold" id="ar-start-btn" onclick="arStart()">Aktifkan Kamera</button>
+        <button class="btn btn-outline" id="ar-stop-btn" onclick="arStop()" style="display:none;">Matikan Kamera</button>
+        <button class="btn btn-outline" onclick="arCapture()">📸 Ambil Foto</button>
+      </div>
+      <div id="ar-controls-wrap" style="display:none; flex-direction:column; gap:10px;">
+        <div class="ar-slider-row"><label>Posisi X</label><input type="range" id="ar-x" min="0" max="100" value="50"></div>
+        <div class="ar-slider-row"><label>Posisi Y</label><input type="range" id="ar-y" min="0" max="100" value="32"></div>
+        <div class="ar-slider-row"><label>Ukuran</label><input type="range" id="ar-scale" min="40" max="180" value="100"></div>
+        <div class="ar-slider-row"><label>Rotasi</label><input type="range" id="ar-rotation" min="-45" max="45" value="0"></div>
+      </div>
+    </div>
+    <p class="ar-note">Geser slider untuk menyesuaikan posisi hijab di kepalamu. Izin kamera hanya digunakan di perangkatmu sendiri — tidak ada video yang diunggah ke server manapun.</p>
+  </div>
+
+  <section class="section">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow" style="margin-bottom:10px;">MUNGKIN KAMU SUKA</div>
+        <h2>Produk Terkait</h2>
+      </div>
+    </div>
+    <div class="product-grid" id="related-grid"></div>
+  </section>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <span>© 2026 Hijab AR.</span>
+      <a href="admin.html" style="color:#C9C4B4;">Login Admin</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/shop.js"></script>
+<script src="js/ar-tryon.js"></script>
+<script src="js/product.js"></script>
+</body>
+</html>
