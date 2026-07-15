@@ -12,7 +12,8 @@ const STORE = {
   cart: 'hs_cart',
   orders: 'hs_orders',
   admin: 'hs_admin',
-  session: 'hs_admin_session'
+  session: 'hs_admin_session',
+  heroImage: 'hs_hero_image'
 };
 
 /** Generate a soft gradient placeholder photo (SVG data URI) so the
@@ -108,3 +109,7 @@ function productImage(p, index){
   if(p.images && p.images[index]) return p.images[index];
   return placeholderPhoto(p.id.charCodeAt(p.id.length-1) + index, p.name);
 }
+
+function getHeroImage(){ return localStorage.getItem(STORE.heroImage) || ''; }
+function saveHeroImage(dataUrl){ localStorage.setItem(STORE.heroImage, dataUrl); }
+function resetHeroImage(){ localStorage.removeItem(STORE.heroImage); }
