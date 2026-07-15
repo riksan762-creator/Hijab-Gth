@@ -167,7 +167,18 @@
       const featured = getProducts().slice(0,4);
       grid.innerHTML = featured.map(productCardHTML).join('');
     }
+    const heroImg = getHeroImage();
+    if(heroImg){
+      const visual = document.querySelector('.hero-visual');
+      const svg = visual.querySelector('.hero-illustration');
+      if(svg) svg.remove();
+      const img = document.createElement('img');
+      img.className = 'hero-custom-img';
+      img.src = heroImg;
+      img.alt = 'Foto AR fitting hijab';
+      visual.insertBefore(img, visual.firstChild);
+    }
   });
 </script>
 </body>
-</html
+</html>
