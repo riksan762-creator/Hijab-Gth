@@ -27,6 +27,7 @@ function showAdminPanel(){
   renderAdminStats();
   renderAdminProducts();
   renderAdminOrders();
+  renderHeroPreview();
 }
 
 /* ---------- Dashboard stats ---------- */
@@ -189,6 +190,35 @@ function updateOrderStatus(id, status){
   const orders = getOrders();
   const o = orders.find(x => x.id === id);
   if(o){ o.status = status; saveOrders(orders); showToast('Status pesanan diperbarui'); }
+}
+
+/* ---------- Homepage hero image ---------- */
+function renderHeroPreview(){
+  const box = document.getElementById('hero-preview-box');
+  if(!box) return;
+  const img = getHeroImage();
+  box.innerHTML = img
+    ? `<img src="${img}" alt="Preview gambar hero">`
+    : `<div class="placeholder-text">Sedang memakai ilustrasi bawaan (siluet hijab + bingkai AR)</div>`;
+}
+
+function handleHeroImageUpload(input){
+  const file = input.files && input.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    saveHeroImage(reader.result);
+    renderHeroPreview();
+    showToast('Gambar hero diperbarui ✓ — cek beranda untuk melihatnya');
+  };
+  reader.readAsDataURL(file);
+  input.value = '';
+}
+
+function resetHeroImageAdmin(){
+  resetHeroImage();
+  renderHeroPreview();
+  showToast('Kembali ke ilustrasi default');
 }
 
 /* ---------- Settings ---------- */
