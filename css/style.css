@@ -185,6 +185,9 @@ h1,h2,h3,.display{
 .hero-illustration{
   position:absolute; inset:0; width:100%; height:100%;
 }
+.hero-custom-img{
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+}
 .hero-illustration .scan-line{
   animation:ar-scan 3.2s ease-in-out infinite;
 }
@@ -299,8 +302,11 @@ h1,h2,h3,.display{
   position:relative; aspect-ratio:4/3; background:#11150F; display:flex; align-items:center; justify-content:center; overflow:hidden;
 }
 .ar-stage video{width:100%; height:100%; object-fit:cover; transform:scaleX(-1);}
-/* Suppress Chrome/Edge's automatic floating "..." picture-in-picture button
-   that otherwise appears on top of the camera feed. */
+/* The camera feed and its canvas overlay are display-only — no click should
+   ever land on the raw <video>, since that is what let Chrome's native
+   floating Picture-in-Picture control (the "..." button) intercept clicks
+   and swap the video out for a transparent placeholder mid-page. */
+.ar-stage video, .ar-stage canvas{ pointer-events:none; }
 .ar-stage video::-webkit-media-controls,
 .ar-stage video::-webkit-media-controls-enclosure,
 .ar-stage video::-webkit-media-controls-panel,
